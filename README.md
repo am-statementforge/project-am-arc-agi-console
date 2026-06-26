@@ -1,11 +1,14 @@
-# PROJECT AM v10 - ARC-AGI Solver
+# PROJECT AM v10 - ARC-AGI Research Console
 
-Local ARC-AGI research repo with a PyTorch TRM solver, ARC-AGI-1/2 datasets, checkpoint support, and a zero-dependency web console.
+Full-stack local research console for ARC-AGI experiments. It combines a Python backend, a zero-dependency browser UI, a PyTorch TRM solver, dataset tooling, checkpoint awareness, CI, Docker support, and reproducible tests.
+
+This repo is designed to show practical AI engineering: dataset handling, model orchestration, API design, frontend visualization, safe local defaults, and developer-grade packaging.
 
 ## Quick Start
 
 ```bash
-cd project-am-v10
+git clone https://github.com/am-statementforge/project-am-arc-agi-console.git
+cd project-am-arc-agi-console
 python3 main.py --test
 python3 web_interface.py --port 7860
 ```
@@ -28,14 +31,37 @@ The local interface shows:
 
 It uses only the Python standard library, so it opens even when ML packages or a virtualenv are broken.
 
+## Backend API
+
+```text
+GET /api/health
+GET /api/status
+GET /api/tasks?dataset=arc1&split=training&limit=200
+GET /api/task?dataset=arc1&split=training&id=007bbfb7
+```
+
 ## Solver Commands
 
 ```bash
 python3 main.py --test
 python3 main.py --quick-test --dataset arc1 -n 5
 python3 main.py --evaluate --dataset arc1 --ttt --max-tasks 5
-python3 train_gpu.py --dataset arc1
+python3 main.py --train --dataset arc1 --epochs 50 --batch-size 4
 ```
+
+## Engineering Quality
+
+```bash
+make test
+make serve
+```
+
+Included:
+
+- `tests/` for backend and dataset API behavior
+- `.github/workflows/ci.yml` for syntax and unit checks
+- `Dockerfile` for reproducible local serving
+- `docs/API.md` and `docs/ARCHITECTURE.md` for system design review
 
 ## Publish Notes
 

@@ -153,7 +153,7 @@ def status_payload() -> dict[str, Any]:
             "python3 main.py --test",
             "python3 main.py --quick-test --dataset arc1 -n 5",
             "python3 main.py --evaluate --dataset arc1 --ttt --max-tasks 5",
-            "python3 train_gpu.py --dataset arc1",
+            "python3 main.py --train --dataset arc1 --epochs 50 --batch-size 4",
         ],
     }
 
@@ -522,6 +522,16 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_payload(200, body, "text/html; charset=utf-8")
             elif parsed.path == "/api/status":
                 self.send_payload(*json_bytes(status_payload()))
+            elif parsed.path == "/api/health":
+                status = status_payload()
+                payload = {
+                    "ok": True,
+                    "project": status["project"],
+                    "datasets": status["datasets"],
+                    "torch": status["deps"].get("torch", {}),
+                    "checkpoints": len(status["checkpoints"]),
+                }
+                self.send_payload(*json_bytes(payload))
             elif parsed.path == "/api/tasks":
                 dataset = params.get("dataset", ["arc1"])[0]
                 split = params.get("split", ["training"])[0]

@@ -1,0 +1,14 @@
+.git/
+__pycache__/
+*.pyc
+
+venv/
+.venv/
+
+data/
+checkpoints/
+logs/
+runs/
+outputs/
+wandb/
+project_am_v10/
