@@ -9,11 +9,15 @@ This repo is designed to show practical AI engineering: dataset handling, model 
 ```bash
 git clone https://github.com/am-statementforge/project-am-arc-agi-console.git
 cd project-am-arc-agi-console
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python3 main.py --download
 python3 main.py --test
 python3 web_interface.py --port 7860
 ```
 
-Open:
+Open the console:
 
 ```text
 http://127.0.0.1:7860
@@ -30,6 +34,8 @@ The local interface shows:
 - copyable commands for test, quick-test, evaluation, and GPU training
 
 It uses only the Python standard library, so it opens even when ML packages or a virtualenv are broken.
+
+The ARC datasets and checkpoints are intentionally not committed. `python3 main.py --download` restores the public ARC-AGI task files locally.
 
 ## Backend API
 
